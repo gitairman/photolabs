@@ -16,7 +16,7 @@ const PhotoListItem = (props) => {
   } = props;
 
   return (
-    <div onClick={handleClick} className="photo-list__item">
+    <div onClick={() => handleClick(id)} className="photo-list__item">
       <PhotoFavButton
         id={id}
         favArr={favArr}
