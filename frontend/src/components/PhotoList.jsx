@@ -61,7 +61,7 @@ const PhotoList = () => {
   return (
     <ul className="photo-list">
       {sampleDataForPhotoList.map((p, i) => (
-        <li key={i}>
+        <li key={p.id}>
           <PhotoListItem
             location={p.location}
             imageSource={p.urls.full}
