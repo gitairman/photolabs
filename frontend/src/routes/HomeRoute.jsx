@@ -22,6 +22,10 @@ const HomeRoute = ({ photos, topics }) => {
     setShowModal(true);
   };
 
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <div className="home-route">
       <TopNavigation topics={topics} favPhotos={favPhotos} />
@@ -31,7 +35,7 @@ const HomeRoute = ({ photos, topics }) => {
         handleFavourite={handleFavourite}
         handleClick={handleClickPhoto}
       />
-      {showModal && <PhotoDetailsModal />}
+      {showModal && <PhotoDetailsModal closeModal={closeModal} />}
     </div>
   );
 };
