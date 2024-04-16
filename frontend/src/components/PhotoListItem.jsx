@@ -12,9 +12,11 @@ const PhotoListItem = (props) => {
     profile,
     favArr,
     handleFavourite,
+    handleClick,
   } = props;
+
   return (
-    <div className="photo-list__item">
+    <div onClick={handleClick} className="photo-list__item">
       <PhotoFavButton
         id={id}
         favArr={favArr}

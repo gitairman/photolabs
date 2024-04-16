@@ -3,7 +3,7 @@ import React from 'react';
 import '../styles/PhotoList.scss';
 import PhotoListItem from './PhotoListItem';
 
-const PhotoList = ({ photos, favArr, handleFavourite }) => {
+const PhotoList = ({ photos, favArr, handleFavourite, handleClick }) => {
   return (
     <ul className="photo-list">
       {photos.map((p) => (
@@ -16,6 +16,7 @@ const PhotoList = ({ photos, favArr, handleFavourite }) => {
             profile={p.user.profile}
             favArr={favArr}
             handleFavourite={handleFavourite}
+            handleClick={handleClick}
           />
         </li>
       ))}

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import '../styles/HomeRoute.scss';
 import TopNavigation from 'components/TopNavigationBar';
 import PhotoList from 'components/PhotoList';
+import PhotoDetailsModal from './PhotoDetailsModal';
 
 const HomeRoute = ({ photos, topics }) => {
   const [favPhotos, setFavPhotos] = useState([]);
@@ -16,6 +17,11 @@ const HomeRoute = ({ photos, topics }) => {
   const removeFromFavourites = (id) =>
     setFavPhotos(favPhotos.filter((p) => p !== id));
 
+  const [showModal, setShowModal] = useState(false);
+  const handleClickPhoto = () => {
+    setShowModal(true);
+  };
+
   return (
     <div className="home-route">
       <TopNavigation topics={topics} favPhotos={favPhotos} />
@@ -23,7 +29,9 @@ const HomeRoute = ({ photos, topics }) => {
         photos={photos}
         favArr={favPhotos}
         handleFavourite={handleFavourite}
+        handleClick={handleClickPhoto}
       />
+      {showModal && <PhotoDetailsModal />}
     </div>
   );
 };
