@@ -6,7 +6,7 @@ const PhotoListItem = (props) => {
   const { id, location, imageSource, username, profile } = props;
   return (
     <div>
-      <img src={imageSource} />
+      <img className="photo-list__item" src={imageSource} />
       <img src={profile} />
       <p>{username}</p>
       <p>
