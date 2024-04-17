@@ -3,6 +3,7 @@ import React from 'react';
 import '../styles/PhotoDetailsModal.scss';
 import closeSymbol from '../assets/closeSymbol.svg';
 import PhotoList from 'components/PhotoList';
+import PhotoFavButton from 'components/PhotoFavButton';
 
 const PhotoDetailsModal = ({
   closeModal,
@@ -10,7 +11,6 @@ const PhotoDetailsModal = ({
   favArr,
   handleFavourite,
   handleClick,
-  showModal,
 }) => {
   return (
     <div className="photo-details-modal">
@@ -20,6 +20,11 @@ const PhotoDetailsModal = ({
         <img src={closeSymbol} alt="close symbol" />
       </button>
       <br />
+      <PhotoFavButton
+        id={p.id}
+        favArr={favArr}
+        handleFavourite={handleFavourite}
+      />
       <img className="photo-details-modal__image" src={p.urls.full} />
       <div className="photo-details-modal__photographer-details">
         <img
@@ -40,7 +45,6 @@ const PhotoDetailsModal = ({
           favArr={favArr}
           handleFavourite={handleFavourite}
           handleClick={handleClick}
-          showModal={showModal}
         />
       </div>
     </div>

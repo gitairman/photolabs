@@ -80,22 +80,11 @@
   margin-left: 8px;
 }
 
-// .photo-list {
-//   display: flex;
-//   flex-wrap: nowrap;
-//   justify-content: space-between;
-//   list-style-type: none;
-//   margin: 0;
-//   padding: 0;
-// }
+.photo-details-modal__images > .photo-list {
+  flex-wrap: nowrap;
+}
 
-// .photo-list:after {
-//   content: '';
-//   flex: 0 1 30%;
-//   margin: 5px;
-// }
-
-// .photo-list__item {
-//   margin: 0;
-//   margin-right: 16px;
-// }
+.photo-details-modal__images .photo-list__item {
+  margin: 0;
+  margin-right: 16px;
+}
