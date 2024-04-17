@@ -6,14 +6,14 @@ import PhotoList from 'components/PhotoList';
 import PhotoDetailsModal from './PhotoDetailsModal';
 import { useApplicationData } from 'hooks/useApplicationData';
 
-const HomeRoute = ({ photos, topics }) => {
+const HomeRoute = () => {
   const {
     state,
     onPhotoSelect,
     updateToFavPhotoIds,
     onLoadTopic,
     onClosePhotoDetailsModal,
-  } = useApplicationData(photos, topics);
+  } = useApplicationData();
 
   return (
     <div className="home-route">

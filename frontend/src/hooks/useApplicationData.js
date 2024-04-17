@@ -1,6 +1,9 @@
+import photos from 'mocks/photos';
+import topics from 'mocks/topics';
+
 const { useState } = require('react');
 
-export const useApplicationData = (photos, topics) => {
+export const useApplicationData = () => {
   const [favPhotos, setFavPhotos] = useState([]);
   const handleFavourite = (id) =>
     isAlreadyFavourite(id) ? removeFromFavourites(id) : addToFavourites(id);
