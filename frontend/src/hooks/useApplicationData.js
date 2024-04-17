@@ -10,6 +10,7 @@ export const ACTIONS = {
   SET_TOPIC_DATA: 'SET_TOPIC_DATA',
   SELECT_PHOTO: 'SELECT_PHOTO',
   DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS',
+  CLOSE_PHOTO_DETAILS: 'CLOSE_PHOTO_DETAILS'
 };
 
 const initialState = {
@@ -56,22 +57,22 @@ export const useApplicationData = () => {
   const isAlreadyFavourite = (id) => state.favPhotos.includes(id);
 
   const addToFavourites = (id) =>
-    dispatch({ type: 'ADD_FAV_PHOTO', payload: id });
+    dispatch({ type: ACTIONS.ADD_FAV_PHOTO, payload: id });
 
   const removeFromFavourites = (id) =>
-    dispatch({ type: 'REMOVE_FAV_PHOTO', payload: id });
+    dispatch({ type: ACTIONS.REMOVE_FAV_PHOTO, payload: id });
 
 
   const handleClickPhoto = (id) => {
  
-    dispatch({ type: 'SELECT_PHOTO', payload: id });
+    dispatch({ type: ACTIONS.SELECT_PHOTO, payload: id });
 
-    dispatch({ type: 'DISPLAY_PHOTO_DETAILS', payload: true });
+    dispatch({ type: ACTIONS.DISPLAY_PHOTO_DETAILS, payload: true });
   };
 
   const closeModal = () => {
 
-    dispatch({ type: 'CLOSE_PHOTO_DETAILS', payload: false });
+    dispatch({ type: ACTIONS.CLOSE_PHOTO_DETAILS, payload: false });
   };
 
 
