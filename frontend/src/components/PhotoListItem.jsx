@@ -16,13 +16,17 @@ const PhotoListItem = (props) => {
   } = props;
 
   return (
-    <div onClick={() => handleClick(id)} className="photo-list__item">
+    <div className="photo-list__item">
       <PhotoFavButton
         id={id}
         favArr={favArr}
         handleFavourite={handleFavourite}
       />
-      <img className="photo-list__image" src={imageSource} />
+      <img
+        onClick={() => handleClick(id)}
+        className="photo-list__image"
+        src={imageSource}
+      />
       <div className="photo-list__user-details">
         <img className="photo-list__user-profile" src={profile} />
         <p className="photo-list__user-info">

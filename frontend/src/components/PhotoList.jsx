@@ -3,9 +3,17 @@ import React from 'react';
 import '../styles/PhotoList.scss';
 import PhotoListItem from './PhotoListItem';
 
-const PhotoList = ({ photos, favArr, handleFavourite, handleClick }) => {
+const PhotoList = ({
+  photos,
+  favArr,
+  handleFavourite,
+  handleClick,
+  showModal,
+}) => {
   return (
-    <ul className="photo-list">
+    <ul
+      className="photo-list"
+      style={{ flexWrap: showModal ? 'nowrap' : 'wrap' }}>
       {photos.map((p) => (
         <li key={p.id}>
           <PhotoListItem

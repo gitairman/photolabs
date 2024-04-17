@@ -18,9 +18,9 @@ const HomeRoute = ({ photos, topics }) => {
     setFavPhotos(favPhotos.filter((p) => p !== id));
 
   const [showModal, setShowModal] = useState(false);
-  const [modalPhoto, setModalPhoto] = useState({});
+  const [singlePhotoDetail, setSinglePhotoDetail] = useState({});
   const handleClickPhoto = (id) => {
-    setModalPhoto(photos.find((p) => p.id === id));
+    setSinglePhotoDetail(photos.find((p) => p.id === id));
     setShowModal(true);
   };
 
@@ -38,7 +38,14 @@ const HomeRoute = ({ photos, topics }) => {
         handleClick={handleClickPhoto}
       />
       {showModal && (
-        <PhotoDetailsModal closeModal={closeModal} modalPhoto={modalPhoto} />
+        <PhotoDetailsModal
+          closeModal={closeModal}
+          photo={singlePhotoDetail}
+          favArr={favPhotos}
+          handleFavourite={handleFavourite}
+          handleClick={handleClickPhoto}
+          showModal={showModal}
+        />
       )}
     </div>
   );
