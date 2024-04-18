@@ -17,4 +17,9 @@
   color: #111;
   text-underline-position: auto;
   margin-left: 24px;
+
+    &:hover {
+    color: #787878;
+    cursor: pointer;
+  }
 }

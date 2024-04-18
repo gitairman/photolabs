@@ -13,11 +13,12 @@ const HomeRoute = () => {
     updateToFavPhotoIds,
     onLoadTopic,
     onClosePhotoDetailsModal,
+    onLogoClick
   } = useApplicationData();
 
   return (
     <div className="home-route">
-      <TopNavigation topics={state.topics} favPhotos={state.favPhotos} handleClick={onLoadTopic}/>
+      <TopNavigation topics={state.topics} favPhotos={state.favPhotos} handleTopicClick={onLoadTopic} handleLogoClick={onLogoClick}/>
       <PhotoList
         photos={state.photos}
         favArr={state.favPhotos}

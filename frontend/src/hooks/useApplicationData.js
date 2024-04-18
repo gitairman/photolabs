@@ -9,7 +9,8 @@ export const ACTIONS = {
   SET_TOPIC_DATA: 'SET_TOPIC_DATA',
   SELECT_PHOTO: 'SELECT_PHOTO',
   DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS',
-  CLOSE_PHOTO_DETAILS: 'CLOSE_PHOTO_DETAILS'
+  CLOSE_PHOTO_DETAILS: 'CLOSE_PHOTO_DETAILS',
+  GET_PHOTOS_BY_TOPICS: 'GET_PHOTOS_BY_TOPICS',
 };
 
 const initialState = {
@@ -44,6 +45,8 @@ const reducer = (state = initialState, action) => {
     return { ...state, showModal: action.payload };
   case 'CLOSE_PHOTO_DETAILS':
     return { ...state, showModal: action.payload };
+  case 'GET_PHOTOS_BY_TOPICS':
+    return { ...state, photosURL:  action.payload};
   default:
     return state;
   }
@@ -61,7 +64,7 @@ export const useApplicationData = () => {
         dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: photoData });
         dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: topicData });
       });
-  }, []);
+  }, [state.photosURL]);
 
   const handleFav = (id) => isFav(id) ? removeFav(id) : addFav(id);
   const isFav = (id) => state.favPhotos.includes(id);
@@ -69,24 +72,16 @@ export const useApplicationData = () => {
   const removeFav = (id) => dispatch({ type: ACTIONS.REMOVE_FAV_PHOTO, payload: id });
 
 
-  const handleClickPhoto = (id) => {
+  const onPhotoSelect = (id) => {
     dispatch({ type: ACTIONS.SELECT_PHOTO, payload: id });
     dispatch({ type: ACTIONS.DISPLAY_PHOTO_DETAILS, payload: true });
   };
 
-  const closeModal = () => {
-    dispatch({ type: ACTIONS.CLOSE_PHOTO_DETAILS, payload: false });
-  };
+  const closeModal = () => dispatch({ type: ACTIONS.CLOSE_PHOTO_DETAILS, payload: false });
+  const onLogoClick = () => dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload: '/api/photos'});
+  const onLoadTopic = (id) => dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload: `/api/topics/photos/${id}` });
 
-  const onPhotoSelect = handleClickPhoto;
   const updateToFavPhotoIds = handleFav;
-  const onLoadTopic = (id) => {
-    fetch(`/api/topics/photos/${id}`)
-      .then((res) => res.json())
-      .then((data) =>
-        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data })
-      );
-  };
   const onClosePhotoDetailsModal = closeModal;
 
   return {
@@ -95,5 +90,6 @@ export const useApplicationData = () => {
     updateToFavPhotoIds,
     onLoadTopic,
     onClosePhotoDetailsModal,
+    onLogoClick
   };
 };
