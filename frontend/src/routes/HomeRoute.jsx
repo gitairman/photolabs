@@ -17,7 +17,7 @@ const HomeRoute = () => {
 
   return (
     <div className="home-route">
-      <TopNavigation topics={state.topics} favPhotos={state.favPhotos} />
+      <TopNavigation topics={state.topics} favPhotos={state.favPhotos} handleClick={onLoadTopic}/>
       <PhotoList
         photos={state.photos}
         favArr={state.favPhotos}

@@ -18,6 +18,8 @@ const initialState = {
   singlePhotoDetail: {},
   photos: [],
   topics: [],
+  photosURL: '/api/photos',
+  topicsURL: '/api/topics',
 };
 
 const reducer = (state = initialState, action) => {
@@ -52,8 +54,8 @@ export const useApplicationData = () => {
 
   useEffect(() => {
     Promise.all([
-      fetch('/api/photos').then(res => res.json()),
-      fetch('/api/topics').then(res => res.json()),
+      fetch(state.photosURL).then(res => res.json()),
+      fetch(state.topicsURL).then(res => res.json()),
     ])
       .then(([photoData, topicData]) => {
         dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: photoData });
@@ -78,7 +80,13 @@ export const useApplicationData = () => {
 
   const onPhotoSelect = handleClickPhoto;
   const updateToFavPhotoIds = handleFav;
-  const onLoadTopic = () => {};
+  const onLoadTopic = (id) => {
+    fetch(`/api/topics/photos/${id}`)
+      .then((res) => res.json())
+      .then((data) =>
+        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data })
+      );
+  };
   const onClosePhotoDetailsModal = closeModal;
 
   return {
