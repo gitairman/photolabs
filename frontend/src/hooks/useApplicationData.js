@@ -1,7 +1,6 @@
-import photos from 'mocks/photos';
-import topics from 'mocks/topics';
 
-const { useReducer } = require('react');
+
+const { useReducer, useEffect } = require('react');
 
 export const ACTIONS = {
   ADD_FAV_PHOTO: 'ADD_FAV_PHOTO',
@@ -17,8 +16,8 @@ const initialState = {
   favPhotos: [],
   showModal: false,
   singlePhotoDetail: {},
-  photos,
-  topics,
+  photos: [],
+  topics: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -51,33 +50,35 @@ const reducer = (state = initialState, action) => {
 export const useApplicationData = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const handleFavourite = (id) =>
-    isAlreadyFavourite(id) ? removeFromFavourites(id) : addToFavourites(id);
+  useEffect(() => {
+    fetch('/api/photos')
+      .then(res => res.json())
+      .then(data => dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data }));
 
-  const isAlreadyFavourite = (id) => state.favPhotos.includes(id);
+    fetch('/api/topics')
+      .then((res) => res.json())
+      .then((data) =>
+        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: data })
+      );
+  }, []);
 
-  const addToFavourites = (id) =>
-    dispatch({ type: ACTIONS.ADD_FAV_PHOTO, payload: id });
-
-  const removeFromFavourites = (id) =>
-    dispatch({ type: ACTIONS.REMOVE_FAV_PHOTO, payload: id });
+  const handleFav = (id) => isFav(id) ? removeFav(id) : addFav(id);
+  const isFav = (id) => state.favPhotos.includes(id);
+  const addFav = (id) => dispatch({ type: ACTIONS.ADD_FAV_PHOTO, payload: id });
+  const removeFav = (id) => dispatch({ type: ACTIONS.REMOVE_FAV_PHOTO, payload: id });
 
 
   const handleClickPhoto = (id) => {
- 
     dispatch({ type: ACTIONS.SELECT_PHOTO, payload: id });
-
     dispatch({ type: ACTIONS.DISPLAY_PHOTO_DETAILS, payload: true });
   };
 
   const closeModal = () => {
-
     dispatch({ type: ACTIONS.CLOSE_PHOTO_DETAILS, payload: false });
   };
 
-
   const onPhotoSelect = handleClickPhoto;
-  const updateToFavPhotoIds = handleFavourite;
+  const updateToFavPhotoIds = handleFav;
   const onLoadTopic = () => {};
   const onClosePhotoDetailsModal = closeModal;
 

@@ -41,7 +41,7 @@ const PhotoDetailsModal = ({
       <div className="photo-details-modal__header">Similar Photos</div>
       <div className="photo-details-modal__images">
         <PhotoList
-          photos={Object.values(p.similarPhotos)}
+          photos={p.similar_photos}
           favArr={favArr}
           handleFavourite={handleFavourite}
           handleClick={handleClick}
