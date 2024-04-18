@@ -51,15 +51,14 @@ export const useApplicationData = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    fetch('/api/photos')
-      .then(res => res.json())
-      .then(data => dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data }));
-
-    fetch('/api/topics')
-      .then((res) => res.json())
-      .then((data) =>
-        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: data })
-      );
+    Promise.all([
+      fetch('/api/photos').then(res => res.json()),
+      fetch('/api/topics').then(res => res.json()),
+    ])
+      .then(([photoData, topicData]) => {
+        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: photoData });
+        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: topicData });
+      });
   }, []);
 
   const handleFav = (id) => isFav(id) ? removeFav(id) : addFav(id);
