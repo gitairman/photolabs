@@ -77,6 +77,21 @@ export const useApplicationData = () => {
     dispatch({ type: ACTIONS.DISPLAY_PHOTO_DETAILS, payload: true });
   };
 
+  const onModalOffClick = ({ target }) => {
+    if (!state.showModal) return;
+
+    const modalEl = document.getElementById("modal");
+    const rootEl = document.getElementById('root');
+
+    let currEl = target;
+    while (currEl !== rootEl) {
+      if (currEl === modalEl) return;
+      currEl = currEl.parentNode;
+    }
+    return closeModal();
+    
+  };
+
   const closeModal = () => dispatch({ type: ACTIONS.CLOSE_PHOTO_DETAILS, payload: false });
   const onLogoClick = () => dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload: '/api/photos'});
   const onLoadTopic = (id) => dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload: `/api/topics/photos/${id}` });
@@ -90,6 +105,7 @@ export const useApplicationData = () => {
     updateToFavPhotoIds,
     onLoadTopic,
     onClosePhotoDetailsModal,
-    onLogoClick
+    onLogoClick,
+    onModalOffClick
   };
 };

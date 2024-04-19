@@ -13,7 +13,7 @@ const PhotoDetailsModal = ({
   handleClick,
 }) => {
   return (
-    <div className="photo-details-modal">
+    <div id="modal" className="photo-details-modal">
       <button
         onClick={closeModal}
         className="photo-details-modal__close-button">
