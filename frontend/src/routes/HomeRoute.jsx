@@ -13,7 +13,6 @@ const HomeRoute = () => {
     onLoadTopic,
     onClosePhotoDetailsModal,
     onLogoClick,
-    onModalOffClick,
   } = useApplicationData();
 
   return (

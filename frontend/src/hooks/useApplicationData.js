@@ -113,6 +113,5 @@ export const useApplicationData = () => {
     onLoadTopic,
     onClosePhotoDetailsModal,
     onLogoClick,
-    onModalOffClick,
   };
 };
