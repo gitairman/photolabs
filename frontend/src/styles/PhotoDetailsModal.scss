@@ -10,6 +10,13 @@
   overflow-y: scroll;
   border-radius: 12px;
 }
+.photo-details-modal__image-container {
+  width: fit-content;
+  margin: auto;
+  max-width: 95%;
+  height: 54%;
+  max-height: 54%;
+}
 
 .photo-details-modal__close-button {
   background-color: white;
@@ -32,9 +39,11 @@
 
 .photo-details-modal__image {
   display: block;
-  max-width: 95%;
-  border-radius: 8px;
   margin: auto;
+  max-width: 100%;
+  height: calc(100% - 40px);
+  border-radius: 8px;
+  object-fit: contain;
 }
 
 .photo-details-modal__top-bar {
@@ -49,7 +58,7 @@
 .photo-details-modal__photographer-details {
   display: flex;
   font-size: 16px;
-  margin-left: 16px;
+  margin: auto;
 }
 
 .photo-details-modal__header {

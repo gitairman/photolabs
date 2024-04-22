@@ -18,7 +18,8 @@
 }
 
 .photo-details-modal > .photo-list__fav-icon {
-  top: 22px;
-  right: -36px;
+  position: relative;
+  top: 1.5em;
+  right: -3em;
   transform: scale(1.5);
 }
