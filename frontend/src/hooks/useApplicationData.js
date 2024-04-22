@@ -63,7 +63,8 @@ export const useApplicationData = () => {
       .then(([photoData, topicData]) => {
         dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: photoData });
         dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: topicData });
-      });
+      })
+      .catch(err => console.log(err));
   }, [state.photosURL]);
 
   const handleFav = (id) => isFav(id) ? removeFav(id) : addFav(id);
