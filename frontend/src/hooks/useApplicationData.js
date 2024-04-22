@@ -1,5 +1,3 @@
-
-
 const { useReducer, useEffect } = require('react');
 
 export const ACTIONS = {
@@ -46,7 +44,7 @@ const reducer = (state = initialState, action) => {
   case 'CLOSE_PHOTO_DETAILS':
     return { ...state, showModal: action.payload };
   case 'GET_PHOTOS_BY_TOPICS':
-    return { ...state, photosURL:  action.payload};
+    return { ...state, photosURL: action.payload };
   default:
     return state;
   }
@@ -57,21 +55,21 @@ export const useApplicationData = () => {
 
   useEffect(() => {
     Promise.all([
-      fetch(state.photosURL).then(res => res.json()),
-      fetch(state.topicsURL).then(res => res.json()),
+      fetch(state.photosURL).then((res) => res.json()),
+      fetch(state.topicsURL).then((res) => res.json()),
     ])
       .then(([photoData, topicData]) => {
         dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: photoData });
         dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: topicData });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }, [state.photosURL]);
 
-  const handleFav = (id) => isFav(id) ? removeFav(id) : addFav(id);
+  const handleFav = (id) => (isFav(id) ? removeFav(id) : addFav(id));
   const isFav = (id) => state.favPhotos.includes(id);
   const addFav = (id) => dispatch({ type: ACTIONS.ADD_FAV_PHOTO, payload: id });
-  const removeFav = (id) => dispatch({ type: ACTIONS.REMOVE_FAV_PHOTO, payload: id });
-
+  const removeFav = (id) =>
+    dispatch({ type: ACTIONS.REMOVE_FAV_PHOTO, payload: id });
 
   const onPhotoSelect = (id) => {
     dispatch({ type: ACTIONS.SELECT_PHOTO, payload: id });
@@ -79,9 +77,10 @@ export const useApplicationData = () => {
   };
 
   const onModalOffClick = ({ target }) => {
-    if (!state.showModal) return;
+    const isImage = target.classList.contains("photo-list__image");
+    if (!state.showModal || isImage) return;
 
-    const modalEl = document.getElementById("modal");
+    const modalEl = document.getElementById('modal');
     const rootEl = document.getElementById('root');
 
     let currEl = target;
@@ -90,15 +89,22 @@ export const useApplicationData = () => {
       currEl = currEl.parentNode;
     }
     return closeModal();
-    
   };
 
-  const closeModal = () => dispatch({ type: ACTIONS.CLOSE_PHOTO_DETAILS, payload: false });
-  const onLogoClick = () => dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload: '/api/photos'});
-  const onLoadTopic = (id) => dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload: `/api/topics/photos/${id}` });
+  const closeModal = () =>
+    dispatch({ type: ACTIONS.CLOSE_PHOTO_DETAILS, payload: false });
+  const onLogoClick = () =>
+    dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload: '/api/photos' });
+  const onLoadTopic = (id) =>
+    dispatch({
+      type: ACTIONS.GET_PHOTOS_BY_TOPICS,
+      payload: `/api/topics/photos/${id}`,
+    });
 
   const updateToFavPhotoIds = handleFav;
   const onClosePhotoDetailsModal = closeModal;
+
+  document.addEventListener('click', onModalOffClick);
 
   return {
     state,
@@ -107,6 +113,6 @@ export const useApplicationData = () => {
     onLoadTopic,
     onClosePhotoDetailsModal,
     onLogoClick,
-    onModalOffClick
+    onModalOffClick,
   };
 };

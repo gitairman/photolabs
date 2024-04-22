@@ -13,12 +13,17 @@ const HomeRoute = () => {
     onLoadTopic,
     onClosePhotoDetailsModal,
     onLogoClick,
-    onModalOffClick
+    onModalOffClick,
   } = useApplicationData();
 
   return (
-    <div onClick={onModalOffClick} className="home-route">
-      <TopNavigation topics={state.topics} favPhotos={state.favPhotos} handleTopicClick={onLoadTopic} handleLogoClick={onLogoClick}/>
+    <div className="home-route">
+      <TopNavigation
+        topics={state.topics}
+        favPhotos={state.favPhotos}
+        handleTopicClick={onLoadTopic}
+        handleLogoClick={onLogoClick}
+      />
       <PhotoList
         photos={state.photos}
         favArr={state.favPhotos}
