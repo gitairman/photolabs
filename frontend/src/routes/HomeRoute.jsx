@@ -14,7 +14,6 @@ const HomeRoute = () => {
     onClosePhotoDetailsModal,
     onLogoClick,
   } = useApplicationData();
-  console.log('hello');
   return (
     <div className="home-route">
       <TopNavigation
