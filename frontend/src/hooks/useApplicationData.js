@@ -101,6 +101,12 @@ export const useApplicationData = () => {
       payload: `/api/topics/photos/${id}`,
     });
 
+  const onSearch = (searchTerm) => {
+    console.log(searchTerm);
+    console.log(state.photos);
+    
+  };
+
   const updateToFavPhotoIds = handleFav;
   const onClosePhotoDetailsModal = closeModal;
 
@@ -113,5 +119,6 @@ export const useApplicationData = () => {
     onLoadTopic,
     onClosePhotoDetailsModal,
     onLogoClick,
+    onSearch
   };
 };

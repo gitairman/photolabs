@@ -13,6 +13,7 @@ const HomeRoute = () => {
     onLoadTopic,
     onClosePhotoDetailsModal,
     onLogoClick,
+    onSearch
   } = useApplicationData();
 
   return (
@@ -22,6 +23,7 @@ const HomeRoute = () => {
         favPhotos={state.favPhotos}
         handleTopicClick={onLoadTopic}
         handleLogoClick={onLogoClick}
+        handleSearch={onSearch}
       />
       <PhotoList
         photos={state.photos}
