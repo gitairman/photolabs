@@ -4,6 +4,7 @@ export const ACTIONS = {
   ADD_FAV_PHOTO: 'ADD_FAV_PHOTO',
   REMOVE_FAV_PHOTO: 'REMOVE_FAV_PHOTO',
   SET_PHOTO_DATA: 'SET_PHOTO_DATA',
+  FILTER_PHOTO_DATA: 'FILTER_PHOTO_DATA',
   SET_TOPIC_DATA: 'SET_TOPIC_DATA',
   SELECT_PHOTO: 'SELECT_PHOTO',
   DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS',
@@ -32,6 +33,8 @@ const reducer = (state = initialState, action) => {
     };
   case 'SET_PHOTO_DATA':
     return { ...state, photos: action.payload };
+  case 'FILTER_PHOTO_DATA':
+    return { ...state, photos: action.payload, photosURL: '' };
   case 'SET_TOPIC_DATA':
     return { ...state, topics: action.payload };
   case 'SELECT_PHOTO':
@@ -79,12 +82,11 @@ export const useApplicationData = () => {
   };
 
   const getPhotosByTopic = () => {
+    if (!state.photosURL) return;
     fetch(state.photosURL)
       .then((res) => res.json())
-      .then((data) =>
-        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data })
-      )
-      .catch(err => console.log(err));
+      .then((data) => dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data }))
+      .catch((err) => console.log(err));
   };
 
   const handleFav = (id) => (isFav(id) ? removeFav(id) : addFav(id));
@@ -126,8 +128,16 @@ export const useApplicationData = () => {
     return closeModal();
   };
 
-  const onSearch = () => {
-
+  const onSearch = (searchTerm) => {
+    const filteredPhotos = [];
+    state.photos.forEach((photo) => {
+      const [city, country] = Object.values(photo.location);
+      const [username, name] = Object.values(photo.user);
+      if (city.toLowerCase().includes(searchTerm) || country.toLowerCase().includes(searchTerm) || username.toLowerCase().includes(searchTerm) || name.toLowerCase().includes(searchTerm)) {
+        filteredPhotos.push(photo);
+      }
+    });
+    dispatch({ type: ACTIONS.FILTER_PHOTO_DATA, payload: filteredPhotos });
   };
 
   const updateToFavPhotoIds = handleFav;

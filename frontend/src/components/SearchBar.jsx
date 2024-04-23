@@ -7,7 +7,7 @@ const SearchBar = ({ handleSearch }) => {
 
   const handleSearchClick = () => {
     setSearchTerm('');
-    handleSearch(searchTerm);
+    handleSearch(searchTerm.toLowerCase());
   };
 
   return (
