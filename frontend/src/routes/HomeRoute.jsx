@@ -15,7 +15,6 @@ const HomeRoute = () => {
     onLogoClick,
     onSearch
   } = useApplicationData();
-
   return (
     <div className="home-route">
       <TopNavigation
